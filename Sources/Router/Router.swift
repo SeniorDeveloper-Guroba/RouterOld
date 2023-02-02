@@ -1,7 +1,7 @@
 import UIKit
 
 // MARK: - It is responsible for creating navigation in App
-final class RouterService {
+final public class RouterService {
     
     // MARK: - VC
     private var newNavigationVC: UINavigationController?
@@ -123,5 +123,7 @@ final class RouterService {
         case viewController(UIViewController)
         case nextViewController(UIViewController)
     }
+    
+    public init() {}
 }
 
