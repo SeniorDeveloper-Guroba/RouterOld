@@ -118,7 +118,7 @@ final public class RouterService {
     }
     
     // MARK: - Тип перехода
-    enum PresentType {
+    public enum PresentType {
         
         case viewController(UIViewController)
         case nextViewController(UIViewController)
