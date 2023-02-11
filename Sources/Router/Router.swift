@@ -9,9 +9,7 @@ final public class RouterService {
     private var currentWindow  : UIWindow?
     
     // MARK: - Lazy
-    private var navigationViewController: UINavigationController {
-        self.newNavigationVC!
-    }
+    private var navigationViewController: UINavigationController?
     
     // MARK: - Логика переключения в навигационном контроллере
     public func pushMainNavigation(
@@ -20,7 +18,11 @@ final public class RouterService {
     ) {
         guard !self.isEqualTopVC(with: viewController) else { return }
         self.currentVC = viewController
-        self.navigationViewController.pushViewController(viewController, animated: animated)
+        self.navigationViewController?.pushViewController(viewController, animated: animated)
+    }
+    
+    public func setupNavigationVC(with navigationController: UINavigationController){
+        self.navigationViewController = navigationController
     }
     
     public func popMainNavigation(
@@ -28,11 +30,11 @@ final public class RouterService {
         animated: Bool
     ) {
         self.currentVC = viewController
-        self.navigationViewController.popToViewController(viewController, animated: animated)
+        self.navigationViewController?.popToViewController(viewController, animated: animated)
     }
     
     public func popMainNavigation(animated: Bool){
-        self.navigationViewController.popViewController(animated: true)
+        self.navigationViewController?.popViewController(animated: true)
     }
     
     public func setupMainNavigationVC(
@@ -42,13 +44,13 @@ final public class RouterService {
         backButtonTitle: String,
         title: String
     ) {
-        self.navigationViewController.navigationBar.tintColor        = tintColor
-        self.navigationViewController.navigationBar.backItem?.title  = backButtonTitle
-        self.navigationViewController.navigationBar.isTranslucent    = true
-        self.navigationViewController.title                          = title
-        self.navigationViewController.navigationItem.backButtonTitle = backButtonTitle
-        self.navigationViewController.navigationBar.shadowImage      = UIImage()
-        self.navigationViewController.setNavigationBarHidden(isNavigationBarHidden, animated: animatedHidden)
+        self.navigationViewController?.navigationBar.tintColor        = tintColor
+        self.navigationViewController?.navigationBar.backItem?.title  = backButtonTitle
+        self.navigationViewController?.navigationBar.isTranslucent    = true
+        self.navigationViewController?.title                          = title
+        self.navigationViewController?.navigationItem.backButtonTitle = backButtonTitle
+        self.navigationViewController?.navigationBar.shadowImage      = UIImage()
+        self.navigationViewController?.setNavigationBarHidden(isNavigationBarHidden, animated: animatedHidden)
     }
     
     // MARK: - Логика установки рутового контроллера
@@ -104,7 +106,7 @@ final public class RouterService {
     
     // MARK: - Проверка
     private func isEqualTopVC(with presentVC: UIViewController) -> Bool {
-        guard let topViewController = self.navigationViewController.topViewController else { return false }
+        guard let topViewController = self.navigationViewController?.topViewController else { return false }
         let viewController  = String(describing: Mirror(reflecting: topViewController).subjectType)
         let presentVCString = String(describing: Mirror(reflecting: presentVC).subjectType)
         let isEqual         = viewController.contains(presentVCString)
