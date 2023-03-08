@@ -10,6 +10,7 @@ final public class RouterService {
     
     // MARK: - Lazy
     private var navigationViewController: UINavigationController?
+    private var tabBarController: UITabBarController?
     
     // MARK: - Логика переключения в навигационном контроллере
     public func pushMainNavigation(
@@ -23,6 +24,10 @@ final public class RouterService {
     
     public func setupNavigationVC(with navigationController: UINavigationController){
         self.navigationViewController = navigationController
+    }
+    
+    public func setupTabBarControllerVC(with tabBarController: UITabBarController){
+        self.tabBarController = tabBarController
     }
     
     public func popMainNavigation(
