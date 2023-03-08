@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 // MARK: - It is responsible for creating navigation in App
 final public class RouterService {
@@ -12,6 +13,9 @@ final public class RouterService {
     private var navigationViewController: UINavigationController?
     private var tabBarController: UITabBarController?
     
+    // MARK: - private properties
+    private var anyCancel: Set<AnyCancellable> = []
+    
     // MARK: - Логика переключения в навигационном контроллере
     public func pushMainNavigation(
         to viewController: UIViewController,
@@ -24,6 +28,9 @@ final public class RouterService {
     
     public func setupNavigationVC(with navigationController: UINavigationController){
         self.navigationViewController = navigationController
+        self.navigationViewController?.publisher(for: \.navigationController, options: .new).sink(receiveValue: { value in
+            print(value)
+        }).store(in: &anyCancel)
     }
     
     public func setupTabBarControllerVC(with tabBarController: UITabBarController){
@@ -38,12 +45,17 @@ final public class RouterService {
         to viewController: UIViewController,
         animated: Bool
     ) {
-        self.currentVC = viewController
         self.navigationViewController?.popToViewController(viewController, animated: animated)
+        if let topController = self.currentWindow?.visibleViewController() {
+            self.currentVC = topController
+        }
     }
     
     public func popMainNavigation(animated: Bool){
         self.navigationViewController?.popViewController(animated: true)
+        if let topController = self.currentWindow?.visibleViewController() {
+            self.currentVC = topController
+        }
     }
     
     public func setupMainNavigationVC(
