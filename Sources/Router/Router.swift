@@ -30,6 +30,10 @@ final public class RouterService {
         self.tabBarController = tabBarController
     }
     
+    public func switchTabBar(with selectedIndex: Int){
+        self.tabBarController?.selectedIndex = selectedIndex
+    }
+    
     public func popMainNavigation(
         to viewController: UIViewController,
         animated: Bool
