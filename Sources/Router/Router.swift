@@ -6,8 +6,11 @@ final public class RouterService {
     
     // MARK: - VC
     private var newNavigationVC: UINavigationController?
-    private var currentVC      : UIViewController?
     private var currentWindow  : UIWindow?
+    
+    private var currentVC: UIViewController? {
+        self.currentWindow?.visibleViewController()
+    }
     
     // MARK: - Lazy
     private var navigationViewController: UINavigationController?
@@ -22,15 +25,11 @@ final public class RouterService {
         animated: Bool = false
     ) {
         guard !self.isEqualTopVC(with: viewController) else { return }
-        self.currentVC = viewController
         self.navigationViewController?.pushViewController(viewController, animated: animated)
     }
     
     public func setupNavigationVC(with navigationController: UINavigationController){
         self.navigationViewController = navigationController
-        self.navigationViewController?.publisher(for: \.navigationController, options: .new).sink(receiveValue: { value in
-            print(value)
-        }).store(in: &anyCancel)
     }
     
     public func setupTabBarControllerVC(with tabBarController: UITabBarController){
@@ -46,16 +45,10 @@ final public class RouterService {
         animated: Bool
     ) {
         self.navigationViewController?.popToViewController(viewController, animated: animated)
-        if let topController = self.currentWindow?.visibleViewController() {
-            self.currentVC = topController
-        }
     }
     
     public func popMainNavigation(animated: Bool){
         self.navigationViewController?.popViewController(animated: true)
-        if let topController = self.currentWindow?.visibleViewController() {
-            self.currentVC = topController
-        }
     }
     
     public func setupMainNavigationVC(
@@ -80,7 +73,6 @@ final public class RouterService {
         viewController rootViewController: UIViewController
     ) {
         window = UIWindow()
-        self.currentVC = rootViewController
         //создаем рутовый контроллер
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
@@ -110,17 +102,12 @@ final public class RouterService {
             with: animation,
             with: transitionStyle,
             with: presentationStyle
-        ) {
-            self.currentVC = presentVC
-        }
+        )
     }
     
     // MARK: - Логика возврата
     public func dismiss(animated: Bool, completion: @escaping (() -> Void) = {}) {
         self.currentVC?.dismiss(animated: animated) {
-            if let topController = self.currentWindow?.visibleViewController() {
-                self.currentVC = topController
-            }
             completion()
         }
     }
