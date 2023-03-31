@@ -86,7 +86,7 @@ final public class RouterService {
         transitionStyle: UIModalTransitionStyle = .coverVertical,
         presentationStyle: UIModalPresentationStyle = .fullScreen,
         isSetCurrent: Bool = false,
-        completion: @escaping () -> Void
+        completion: @escaping () -> Void = {}
     ) {
         guard !(currentVC == nil) else { return }
         let presentVC: UIViewController
