@@ -89,15 +89,17 @@ final public class RouterService {
         completion: @escaping () -> Void = {}
     ) {
         guard !(currentVC == nil) else { return }
-        let presentVC: UIViewController
+        var presentVC: UIViewController?
         switch presentType {
             case .viewController(let viewController):
                 presentVC = viewController
                 // next
             case .nextViewController(let viewController):
                 presentVC = viewController
+            case .system(let system):
+                systemPush(with: system)
         }
-        
+        guard let presentVC = presentVC else { return }
         currentVC?.present(
             with: presentVC,
             with: animation,
@@ -130,9 +132,26 @@ final public class RouterService {
     
     // MARK: - Тип перехода
     public enum PresentType {
-        
+        case system(Systems)
         case viewController(UIViewController)
         case nextViewController(UIViewController)
+    }
+    
+    public func systemPush(with systems: Systems){
+        switch systems {
+            case .setting:
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(
+                        url,
+                        options: [:],
+                        completionHandler: nil
+                    )
+                }
+        }
+    }
+    
+    public enum Systems {
+        case setting
     }
     
     public init() {}
