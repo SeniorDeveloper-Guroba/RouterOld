@@ -78,6 +78,12 @@ final public class RouterService {
         window?.makeKeyAndVisible()
         currentWindow = window
     }
+	
+	public func setWindow(
+		window: UIWindow?
+	) {
+		currentWindow = window
+	}
     
     // MARK: - Логика отображения в контроле другой контроллер
     public func present(
