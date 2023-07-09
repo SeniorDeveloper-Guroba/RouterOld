@@ -99,9 +99,7 @@ final public class RouterService {
         switch presentType {
             case .viewController(let viewController):
                 presentVC = viewController
-                // next
-            case .nextViewController(let viewController):
-                presentVC = viewController
+            
             case .system(let system):
                 systemPush(with: system)
         }
@@ -140,7 +138,6 @@ final public class RouterService {
     public enum PresentType {
         case system(Systems)
         case viewController(UIViewController)
-        case nextViewController(UIViewController)
     }
     
     public func systemPush(with systems: Systems){
