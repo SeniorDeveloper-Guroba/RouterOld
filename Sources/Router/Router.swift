@@ -55,9 +55,9 @@ final public class RouterService {
 		animated: Bool
 	) {
 		if let viewController = viewController {
-			self.navigationViewController?.popToViewController(viewController, animated: animated)
+			self.newNavigationVC?.popToViewController(viewController, animated: animated)
 		} else {
-			self.navigationViewController?.popViewController(animated: true)
+			self.newNavigationVC?.popViewController(animated: true)
 		}
 	}
     
