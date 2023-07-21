@@ -36,6 +36,11 @@ final public class RouterService {
 		window.makeKeyAndVisible()
 		currentWindow = window
     }
+	
+	public func createNewFlowNavigation(with rootViewController: UIViewController) -> UINavigationController {
+		self.newNavigationVC = UINavigationController(rootViewController: rootViewController)
+		return self.newNavigationVC!
+	}
     
     public func setupTabBarControllerVC(with tabBarController: UITabBarController){
         self.tabBarController = tabBarController
