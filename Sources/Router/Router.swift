@@ -50,6 +50,14 @@ final public class RouterService {
         self.tabBarController?.selectedIndex = selectedIndex
     }
 	
+	public func pushNewNavigation(
+		to viewController: UIViewController,
+		animated: Bool = false
+	) {
+		guard !self.isEqualTopVC(with: viewController) else { return }
+		self.newNavigationVC?.pushViewController(viewController, animated: animated)
+	}
+	
 	public func popNewNavigation(
 		to viewController: UIViewController? = nil,
 		animated: Bool
