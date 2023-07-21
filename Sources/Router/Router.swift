@@ -28,11 +28,11 @@ final public class RouterService {
         self.navigationViewController?.pushViewController(viewController, animated: animated)
     }
     
-	public func setupNavigationVC(with rootViewController: UIViewController, window: UIWindow?){
+	public func setupNavigationVC(with rootViewController: UIViewController, window: UIWindow? = nil){
 		self.navigationViewController = UINavigationController(rootViewController: rootViewController)
 		guard let window = window else { return }
 		//создаем рутовый контроллер
-		window.rootViewController = rootViewController
+		window.rootViewController = self.navigationViewController
 		window.makeKeyAndVisible()
 		currentWindow = window
     }
