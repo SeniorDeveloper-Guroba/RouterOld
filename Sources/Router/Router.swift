@@ -49,6 +49,17 @@ final public class RouterService {
     public func switchTabBar(with selectedIndex: Int){
         self.tabBarController?.selectedIndex = selectedIndex
     }
+	
+	public func popNewNavigation(
+		to viewController: UIViewController? = nil,
+		animated: Bool
+	) {
+		if let viewController = viewController {
+			self.navigationViewController?.popToViewController(viewController, animated: animated)
+		} else {
+			self.navigationViewController?.popViewController(animated: true)
+		}
+	}
     
     public func popMainNavigation(
         to viewController: UIViewController,
