@@ -76,6 +76,22 @@ final public class RouterService {
         self.navigationViewController?.navigationBar.shadowImage      = UIImage()
         self.navigationViewController?.setNavigationBarHidden(isNavigationBarHidden, animated: animatedHidden)
     }
+	
+	public func setupNewFlowNavigationVC(
+		isNavigationBarHidden: Bool = false,
+		animatedHidden: Bool = false,
+		tintColor: UIColor = .blue,
+		backButtonTitle: String,
+		title: String
+	) {
+		self.newNavigationVC?.navigationBar.tintColor        = tintColor
+		self.newNavigationVC?.navigationBar.backItem?.title  = backButtonTitle
+		self.newNavigationVC?.navigationBar.isTranslucent    = true
+		self.newNavigationVC?.title                          = title
+		self.newNavigationVC?.navigationItem.backButtonTitle = backButtonTitle
+		self.newNavigationVC?.navigationBar.shadowImage      = UIImage()
+		self.newNavigationVC?.setNavigationBarHidden(isNavigationBarHidden, animated: animatedHidden)
+	}
     
     // MARK: - Логика установки рутового контроллера
     public func setRootViewController(
