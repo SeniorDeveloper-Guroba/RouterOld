@@ -28,8 +28,8 @@ final public class RouterService {
         self.navigationViewController?.pushViewController(viewController, animated: animated)
     }
     
-    public func setupNavigationVC(with navigationController: UINavigationController){
-        self.navigationViewController = navigationController
+    public func setupNavigationVC(with rootViewController: UIViewController){
+		self.navigationViewController = UINavigationController(rootViewController: rootViewController)
     }
     
     public func setupTabBarControllerVC(with tabBarController: UITabBarController){
