@@ -139,7 +139,6 @@ final public class RouterService {
         isSetCurrent: Bool = false,
         completion: @escaping () -> Void = {}
     ) {
-        guard !(currentVC == nil) else { return }
         var presentVC: UIViewController?
         switch presentType {
             case .viewController(let viewController):
